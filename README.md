@@ -7,8 +7,7 @@
 * Predict the demand for the next 3 months at the item level (i.e. all the stores combined).
 
 # Approach
-An Xtreme Gradient Boosting model is chosen to forecast the demand. 
-Forecasting using **DecisionTreeRegressor, RandomForestRegressor, KNNRegressor, ARIMA, SARIMA, Holt Winter's** will be added eventually.
+An **Xtreme Gradient Boosting** model is chosen to forecast the demand. Other techniques like **DecisionTreeRegressor, RandomForestRegressor, KNNRegressor, ARIMA, SARIMA, Holt Winter's** will be performed eventually.
 
 # Methodology
 This time series problem comprises of the following
