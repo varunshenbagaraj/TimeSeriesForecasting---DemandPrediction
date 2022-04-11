@@ -1,4 +1,4 @@
-# **Step 0 - Importing Libraries**
+**Step 0 - Importing Libraries**
 
 # data analysis
 import pandas as pd
@@ -21,20 +21,24 @@ import warnings
 warnings.filterwarnings('ignore')
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-# Importing Dataset
+**Step 1 - Importing Dataset**
+
 master_data = pd.read_csv('/content/IDF_train 2.csv', parse_dates=['date'], index_col=['date']).drop(['store'], axis=1)
+
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-# Data Wrangling
+**Step 2 - Data Wrangling**
+
 md = master_data.copy()
 md = md.groupby(['item','date']).agg({'sales':'sum'}).reset_index()
 md = md.set_index('date', drop=True)
-
 md = md.groupby(['item']).sales.rolling(90).sum().shift(-90).dropna().reset_index().set_index('date', drop=True)
 md = md.reset_index()
----------------------------------------------------------------------------------------------------------------------------------------
 
-# Visualizations
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+**Step 3 - Data Visualization**
+
 for i in list(md['item'].unique()):
   plotdf = md[md['item']==i]
   plotdf = plotdf.drop(['item'], axis=1)
@@ -47,8 +51,10 @@ for i in list(md['item'].unique()):
   plt.xlabel('Date', size=10)
   plt.ylabel('Sales #', size=10)
   plt.show()
-  ---------------------------------------------------------------------------------------------------------------------------------------
-# Feature Engineering
+  
+-----------------------------------------------------------------------------------------------------------------------------------------
+**Step 4 - Feature Engineering**
+
 md['day_of_month'] = md['date'].dt.day
 md['month'] = md['date'].dt.month
 md['year'] = md['date'].dt.year
@@ -58,14 +64,19 @@ md['is_month_start'] = md['date'].dt.is_month_start.astype(int)
 md['is_month_end'] = md['date'].dt.is_month_end.astype(int)
 md['is_quarter_start'] = md['date'].dt.is_quarter_start.astype(int)
 md['is_quarter_end'] = md['date'].dt.is_quarter_end.astype(int)
+
 ---------------------------------------------------------------------------------------------------------------------------------------
+**Step 5 - Data Structuring**
 
 # dictionary for collecting the test data forecast results
 test_forecast_dict = dict()
 
 # dictionary for collecting the evaluation metrics of the test forecast
 test_em_dict = dict()
+
 ---------------------------------------------------------------------------------------------------------------------------------------
+
+** Step 6 - Model Building & Forecasting**
 
 # running a for loop with a list of unique items in the dataset as the iterable
 for i in list(md['item'].unique()):
