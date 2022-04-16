@@ -72,10 +72,7 @@ This time series problem comprises of the following
 #### **Stationarity Checks**
 ---
 
-
-
 **Augmented Dickey Fuller Test (ADF)**
-
 
 **Assumptions of ADF**
 * **Ho** - Unit root exists or Non-stationary
@@ -106,7 +103,6 @@ This time series problem comprises of the following
 
 * Helps us decide which model to use whether AR or MA or both i.e. ARMA
 
-
 * **ACF** - Correlation between the observation at current and previous time spots
 * **PACF** - Correlation between the observation at current and previous time spots after eliminating the influences on the previous time spots. *Therefore, in practice, PACF is used to evaluate AR model and ACF is used to evaluate MA model* 
 > Firstly, observe the dataset for a trend. If a trend exists, use differencing to detrend the data. Usually differencing by 1-lag is used.
@@ -116,7 +112,4 @@ This time series problem comprises of the following
 * Helps us to understand whether to use AR or MA for forecasting
 * Helps us decide how many days to look back to predict the current value
 
-##### **Note**
----
-
-*It was not easy to interpret the values of p,d,q from these plots. Hence, the rmse error value for the corresponding p,d,q value was computed. The p,d,q with the lowest rmse was chosen.*
+##### **Note** - *It was nearly impossible  to interpret the values of p,d,q from these plots. Hence, the rmse error value for the corresponding p,d,q value was computed. The p,d,q with the lowest rmse was chosen.*
