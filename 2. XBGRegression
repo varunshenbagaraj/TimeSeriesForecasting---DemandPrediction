@@ -28,12 +28,6 @@ for i in list(md['item'].unique()):
   y_train = y.loc[:'2016-12-31']
   y_test = y.loc['2017-01-01':'2017-10-02']
 
-  #print('Item_'+str(i),'\n')
-  #print(x_train,'\n')
-  #print(y_train,'\n')
-  #print(x_test,'\n')
-  #print(y_test,'\n')
- 
   # Model Building
   # Xtreme Gradient Boosting
 
@@ -46,9 +40,7 @@ for i in list(md['item'].unique()):
   # computing training score
   #train_score = xgbr.score(x_train, y_train)
   #cvs_train = cross_val_score(xgbr, x_train, y_train,cv=10)
-  #print("Training score - {}".format(train_score))
-  #print('Mean cv score - ',cvs_train.mean(),'\n')
-
+ 
   # predicting the test data
   y_pred = xgbr.predict(x_test)
   
@@ -74,10 +66,6 @@ for i in list(md['item'].unique()):
   key = 'Item_'+str(i)
   value = {'r2':r2, 'MSE':mse, 'RMSE':rmse, 'MAE':mae, 'MAPE':mape}
   em_dict_xgb.update({key:value})
-
-  #print('Dataset Statistics')
-  #print('Mean - {}'.format(Mean))
-  #print('Std dev - {}'.format(Std_dev),'\n')
 
   # Data Visualization
   plt.figure(figsize=(6,3))
@@ -136,8 +124,8 @@ for k, v in test_forecast_dict_xgb.items():
   plt.legend(loc='best')
   plt.show()
 
-em_dict_xgb_df
-
+# creating a dupllicate dataframe for computing the losses
+-----------------------------------------------------------
 dfxgb = master_data.copy()
 dfxgb = dfxgb.groupby(['item','date']).agg({'sales':'sum'}).reset_index().set_index('date', drop=True)
 dfxgb = dfxgb.groupby(['item']).sales.rolling(90).sum().shift(-90).dropna().reset_index()
